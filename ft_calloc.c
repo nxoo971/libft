@@ -11,14 +11,16 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#define MAXV	18446744073709551615UL
 
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*s;
 
-	s = malloc(size + 1);
-	if (!s)
+	if (count >= MAXV || size >= MAXV)
 		return (NULL);
-	ft_bzero((void *)s, count);
+	s = malloc(count * size);
+	if (s)
+		ft_bzero(s, count * size);
 	return (s);
 }
