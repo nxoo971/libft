@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ooxn <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/07 21:31:46 by ooxn              #+#    #+#             */
-/*   Updated: 2022/09/07 21:31:47 by ooxn             ###   ########.fr       */
+/*   Created: 2022/09/12 19:30:50 by ooxn              #+#    #+#             */
+/*   Updated: 2022/09/12 19:30:51 by ooxn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	void	*tmp;
-
-	if (!dst && !src)
-		return (NULL);
-	tmp = malloc(len);
-	if (tmp)
-	{
-		ft_memcpy(tmp, src, len);
-		ft_memcpy(dst, tmp, len);
-		free(tmp);
-	}
-	return (dst);
+	new->next = *lst;
+	*lst = new;
 }
