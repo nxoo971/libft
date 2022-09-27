@@ -19,7 +19,7 @@ char	*ft_substr(char const *str, unsigned int start, size_t len)
 	size_t		i;
 
 	if (!str)
-		return (str);
+		return (NULL);
 	i = 0;
 	while (str[i] != '\0' && i < start)
 		i++;
