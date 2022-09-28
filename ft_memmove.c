@@ -18,10 +18,6 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 
 	if (!dst && !src)
 		return (NULL);
-	/*if (dst > src)
-		cpy fin au debut
-	else
-		debut a fin*/
 	tmp = malloc(len);
 	if (tmp)
 	{
