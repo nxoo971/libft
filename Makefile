@@ -4,7 +4,9 @@ SRCS	= ft_striteri.c ft_strtrim.c ft_strmapi.c ft_atoi.c ft_isalpha.c ft_memchr.
 
 BONUS	= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 
-GNL		= get_next_line.c get_next_line_utils.c
+GNL		= get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+
+PRINTF	= ft_printf/ft_printf.c ft_printf/flags.c ft_printf/flags2.c ft_printf/sflags.c ft_printf/xflags.c 
 
 NAME	= libft.a
 
@@ -13,6 +15,8 @@ OBJS		= ${SRCS:.c=.o}
 OBJS_BONUS	= ${BONUS:.c=.o}
 
 OBJS_GNL	= ${GNL:.c=.o}
+
+OBJS_PRINTF	= ${PRINTF:.c=.o}
 
 HEADERS	= ./
 
@@ -27,10 +31,17 @@ all : ${NAME}
 bonus	: $(OBJS) $(OBJS_BONUS)
 		ar rcs $(NAME) $(OBJS) $(OBJS_BONUS)
 
-gnl		: $(OBJS) $(OBJS_BONUS) $(OBJS_GNL)
-		ar rcs $(NAME) $(OBJS) $(OBJS_BONUS) $(OBJS_GNL)
+gnl		: $(OBJS_GNL)
+		ar rcs $(NAME) $(OBJS_GNL)
+
+printf	: $(OBJS_PRINTF)
+		ar rcs $(NAME) $(OBJS_PRINTF)
+
+any		: $(OBJS) $(OBJS_BONUS) $(OBJS_GNL) $(OBJS_PRINTF)
+		ar rcs $(NAME) $(OBJS) $(OBJS_BONUS) $(OBJS_GNL) $(OBJS_PRINTF)
+
 clean :
-		rm -f ${OBJS} ${OBJS_BONUS} $(OBJS_GNL)
+		rm -f ${OBJS} ${OBJS_BONUS} $(OBJS_GNL) $(OBJS_PRINTF)
 
 fclean : clean
 		rm -f ${NAME}
