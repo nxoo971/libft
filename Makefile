@@ -4,11 +4,15 @@ SRCS	= ft_striteri.c ft_strtrim.c ft_strmapi.c ft_atoi.c ft_isalpha.c ft_memchr.
 
 BONUS	= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 
+GNL		= get_next_line.c get_next_line_utils.c
+
 NAME	= libft.a
 
-OBJS	= ${SRCS:.c=.o}
+OBJS		= ${SRCS:.c=.o}
 
-OBJS_BONUS = ${BONUS:.c=.o}
+OBJS_BONUS	= ${BONUS:.c=.o}
+
+OBJS_GNL	= ${GNL:.c=.o}
 
 HEADERS	= ./
 
@@ -20,11 +24,13 @@ ${NAME} : ${OBJS}
 
 all : ${NAME}
 
-bonus : $(OBJS) $(OBJS_BONUS)
+bonus	: $(OBJS) $(OBJS_BONUS)
 		ar rcs $(NAME) $(OBJS) $(OBJS_BONUS)
 
+gnl		: $(OBJS) $(OBJS_BONUS) $(OBJS_GNL)
+		ar rcs $(NAME) $(OBJS) $(OBJS_BONUS) $(OBJS_GNL)
 clean :
-		rm -f ${OBJS} ${OBJS_BONUS}
+		rm -f ${OBJS} ${OBJS_BONUS} $(OBJS_GNL)
 
 fclean : clean
 		rm -f ${NAME}
