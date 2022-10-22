@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 20:13:10 by ooxn              #+#    #+#             */
-/*   Updated: 2022/09/29 21:21:15 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/21 04:52:07 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,22 @@ void	*ft_calloc(size_t count, size_t size);
 
 void	ft_bzero(void *s, size_t n);
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
+
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+
+/* ajout en plus */
+int		ft_isspace(const char c);
+int		ft_putchar(const char c);
+int		ft_putstr(const char *s);
+int		ft_putnstr(const char *s, size_t len);
+int		ft_putendl(const char *s);
+void	ft_putnbr(int n);
+void	ft_swap(void *a, void *b, size_t const n);
+char	*ft_strcpy(char *dest, const char *src);
+/* ********** */
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
@@ -54,6 +66,7 @@ size_t	ft_strlen(const char *s);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
+char	*ft_strnrchr(const char *s, int c, int len);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *str, unsigned int start, size_t len);

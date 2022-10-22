@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/06 22:28:14 by ooxn              #+#    #+#             */
-/*   Updated: 2022/10/21 02:21:32 by nxoo             ###   ########.fr       */
+/*   Created: 2022/10/21 01:18:44 by nxoo              #+#    #+#             */
+/*   Updated: 2022/10/21 01:20:38 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	int		neg;
-	long	res;
+	int	i;
 
-	res = 0;
-	neg = 1;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '+' || *str == '-')
+	i = 0;
+	while (src[i] != '\0')
 	{
-		if (*str == '-')
-			neg *= -1;
-		str++;
+		dest[i] = src[i];
+		i++;
 	}
-	while (*str && *str >= '0' && *str <= '9')
-	{
-		res = (res * 10) + (*str - '0');
-		str++;
-	}
-	return (res * neg);
+	dest[i] = '\0';
+	return (dest);
 }

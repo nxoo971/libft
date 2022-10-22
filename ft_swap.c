@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/06 22:28:14 by ooxn              #+#    #+#             */
-/*   Updated: 2022/10/21 02:21:32 by nxoo             ###   ########.fr       */
+/*   Created: 2022/10/21 04:33:51 by nxoo              #+#    #+#             */
+/*   Updated: 2022/10/21 04:52:00 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+void	ft_swap(void *a, void *b, size_t const n)
 {
-	int		neg;
-	long	res;
+	size_t			i;
+	unsigned char	*cur_a;
+    unsigned char	*cur_b;
+    unsigned char	tmp;
 
-	res = 0;
-	neg = 1;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '+' || *str == '-')
+    i = 0;
+	while (i < n)
 	{
-		if (*str == '-')
-			neg *= -1;
-		str++;
+    	cur_a   = a + i;
+        cur_b   = b + i;
+        tmp     = *cur_a;
+    	*cur_a  = *cur_b;
+    	*cur_b  = tmp;
+    	i++;
 	}
-	while (*str && *str >= '0' && *str <= '9')
-	{
-		res = (res * 10) + (*str - '0');
-		str++;
-	}
-	return (res * neg);
 }

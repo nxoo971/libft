@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strnrchr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/06 22:28:14 by ooxn              #+#    #+#             */
-/*   Updated: 2022/10/21 02:21:32 by nxoo             ###   ########.fr       */
+/*   Created: 2022/10/07 21:58:57 by nxoo              #+#    #+#             */
+/*   Updated: 2022/10/07 21:59:06 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+char	*ft_strnrchr(const char *s, int c, int len)
 {
-	int		neg;
-	long	res;
+	char	*s1;
 
-	res = 0;
-	neg = 1;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '+' || *str == '-')
+	s1 = NULL;
+	while (*s && len-- > 0)
 	{
-		if (*str == '-')
-			neg *= -1;
-		str++;
+		if (*s == (char)c)
+			s1 = (char *)s;
+		s++;
 	}
-	while (*str && *str >= '0' && *str <= '9')
-	{
-		res = (res * 10) + (*str - '0');
-		str++;
-	}
-	return (res * neg);
+	if (*s == (char)c)
+		s1 = (char *)s;
+	return (s1);
 }

@@ -3,36 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ooxn <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 22:10:53 by ooxn              #+#    #+#             */
-/*   Updated: 2022/09/14 19:07:56 by ooxn             ###   ########.fr       */
+/*   Updated: 2022/10/21 04:55:45 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	len_n(int n)
+int	length_integer(unsigned int nb)
 {
-	size_t			count;
-	unsigned int	nb;
+	static int	len;
 
-	count = 0;
-	nb = n;
-	if (n < 0)
-	{
-		count = 1;
-		nb = n * -1;
-	}
-	while (nb >= 10)
-	{
-		count++;
-		nb /= 10;
-	}
-	return (count + 1);
+	len = 0;
+	if (nb >= 10)
+		length_integer(nb / 10);
+	len++;
+	return (len);
 }
 
-void	ft_putnbr(int n, char **res, int pos)
+void	set_nb(int n, char **res, int pos)
 {
 	unsigned int	nb;
 
@@ -43,7 +34,7 @@ void	ft_putnbr(int n, char **res, int pos)
 		(*res)[0] = '-';
 	}
 	if (nb >= 10)
-		ft_putnbr(nb / 10, res, pos - 1);
+		set_nb(nb / 10, res, pos - 1);
 	(*res)[pos] = nb % 10 + '0';
 }
 
@@ -52,11 +43,14 @@ char	*ft_itoa(int n)
 	size_t	len;
 	char	*res;
 
-	len = len_n(n);
+	if (n < 0)
+		len = 1 + length_integer(n * -1);
+	else
+		len = length_integer(n);
 	res = malloc(len + 1);
 	if (!res)
 		return (res);
 	res[len] = 0;
-	ft_putnbr(n, &res, len - 1);
+	set_nb(n, &res, len - 1);
 	return (res);
 }

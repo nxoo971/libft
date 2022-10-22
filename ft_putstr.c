@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/06 22:28:14 by ooxn              #+#    #+#             */
-/*   Updated: 2022/10/21 02:21:32 by nxoo             ###   ########.fr       */
+/*   Created: 2022/10/21 01:02:29 by nxoo              #+#    #+#             */
+/*   Updated: 2022/10/21 01:11:18 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_putstr(const char *s)
 {
-	int		neg;
-	long	res;
+	int	written;
 
-	res = 0;
-	neg = 1;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '+' || *str == '-')
+	written = 0;
+	if (s)
 	{
-		if (*str == '-')
-			neg *= -1;
-		str++;
+		while (s[written])
+			written++;
+		write(1, s, written);
 	}
-	while (*str && *str >= '0' && *str <= '9')
-	{
-		res = (res * 10) + (*str - '0');
-		str++;
-	}
-	return (res * neg);
+	return (written);
 }
