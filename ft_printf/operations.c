@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap.c                                          :+:      :+:    :+:   */
+/*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 04:33:51 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/30 03:05:25 by nxoo             ###   ########.fr       */
+/*   Created: 2022/09/29 19:21:00 by nxoo              #+#    #+#             */
+/*   Updated: 2022/10/30 03:13:24 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../ft_printf.h"
 
-void	ft_swap(void *a, void *b, size_t const n)
+#define SIZE	2 /* upper and lower base */
+
+int	print_n_base(uintptr_t n, int base, t_bool lower)
 {
-	size_t			i;
-	unsigned char	*cur_a;
-	unsigned char	*cur_b;
-	unsigned char	tmp;
+	static int					len;
+	static const char *const	bases[SIZE] = {BASE, LOWERBASE};
 
-	i = 0;
-	while (i < n)
-	{
-		cur_a = a + i;
-		cur_b = b + i;
-		tmp = *cur_a;
-		*cur_a = *cur_b;
-		*cur_b = tmp;
-		i++;
-	}
+	len = 0;
+	if (n >= (unsigned)base)
+		print_n_base(n / base, base, lower);
+	len += ft_putchar(bases[lower][n % base]);
+	return (len);
 }

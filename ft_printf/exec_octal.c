@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags2.c                                           :+:      :+:    :+:   */
+/*   exec_octal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 17:46:32 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/29 21:53:17 by nxoo             ###   ########.fr       */
+/*   Created: 2022/10/16 19:38:51 by nxoo              #+#    #+#             */
+/*   Updated: 2022/10/30 03:13:06 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-void	flag_x(unsigned int n, int *len)
+int	exec_octal(va_list *param, struct s_spec_info *s)
 {
-	divide_n_apply_f2(n, HEXABASE, (void *)&put_x, len);
-}
+	uintptr_t	n;
 
-void	flag_bigx(unsigned int n, int *len)
-{
-	divide_n_apply_f2(n, HEXABASE, (void *)&put_bigx, len);
-}
-
-void	flag_u(unsigned int n, int *len)
-{
-	divide_n_apply_f2(n, DECBASE, (void *)&put_u, len);
-}
-
-void	flag_p(unsigned long int cptr, int *len)
-{
-	flag_s("0x", len);
-	divide_n_apply_f2(cptr, HEXABASE, (void *)&put_p, len);
+	n = va_arg(*param, unsigned int);
+	s->current_size = len_unsigned(n, 8);
+	s->is_null = n == 0;
+	return (print_algo_flag(s, n, 8, faux));
 }

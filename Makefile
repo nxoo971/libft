@@ -8,7 +8,7 @@ BONUS	= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c
 
 GNL		= get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
-PRINTF	= ft_printf/ft_printf.c ft_printf/flags.c ft_printf/flags2.c ft_printf/sflags.c ft_printf/xflags.c 
+PRINTF	= ft_printf/ft_printf.c ft_printf/extract_spec_info.c ft_printf/accept.c ft_printf/explain_specification.c ft_printf/algo_flag.c ft_printf/exec_integer.c ft_printf/exec_octal.c ft_printf/exec_binary.c ft_printf/exec_unsigned.c ft_printf/exec_double.c ft_printf/exec_string.c ft_printf/calc_len.c ft_printf/operations.c ft_printf/color.c ft_printf/print.c 
 
 NAME	= libft.a
 

@@ -1,42 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags.c                                            :+:      :+:    :+:   */
+/*   exec_integer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 02:03:21 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/29 21:53:13 by nxoo             ###   ########.fr       */
+/*   Created: 2022/09/29 19:18:01 by nxoo              #+#    #+#             */
+/*   Updated: 2022/10/30 03:13:03 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-void	flag_c(int c, int *len)
+int	exec_integer(va_list *param, struct s_spec_info *s)
 {
-	ft_putchar_fd(c, 1);
-	*len += 1;
-}
+	intptr_t	n;
+	int			written;
 
-void	flag_s(char *s, int *len)
-{
-	int	i;
-
-	if (!s)
-		s = "(null)";
-	i = 0;
-	while (s[i])
-		i++;
-	write(1, s, i);
-	*len += i;
-}
-
-void	flag_d(int n, int *len)
-{
-	divide_n_apply_f(n, DECBASE, (void *)&put_d, len);
-}
-
-void	flag_i(int n, int *len)
-{
-	flag_d(n, len);
+	written = 0;
+	n = va_arg(*param, int);
+	s->current_size = len_integer(n, 10);
+	s->is_negative = n < 0;
+	s->is_null = n == 0;
+	if (s->is_negative)
+		n = n * -1;
+	if (s->space && !s->plus && !s->is_negative)
+		written = ft_putchar(' ');
+	return (written + print_algo_flag(s, n, 10, faux));
 }

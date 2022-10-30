@@ -5,82 +5,109 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 01:29:09 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/29 21:52:47 by nxoo             ###   ########.fr       */
+/*   Created: 2022/10/01 01:05:09 by nxoo              #+#    #+#             */
+/*   Updated: 2022/10/30 03:13:21 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-void	init_tfunc(t_func (*ptr)[SIZEFUNC])
+static int	print_substring(const char *start, const char *end)
 {
-	(*ptr)[0].func = (void *)&flag_c;
-	(*ptr)[0].c = 'c';
-	(*ptr)[1].func = (void *)&flag_s;
-	(*ptr)[1].c = 's';
-	(*ptr)[2].func = (void *)&flag_d;
-	(*ptr)[2].c = 'd';
-	(*ptr)[3].func = (void *)&flag_x;
-	(*ptr)[3].c = 'x';
-	(*ptr)[4].func = (void *)&flag_bigx;
-	(*ptr)[4].c = 'X';
-	(*ptr)[5].func = (void *)&flag_u;
-	(*ptr)[5].c = 'u';
-	(*ptr)[6].func = (void *)&flag_p;
-	(*ptr)[6].c = 'p';
-	(*ptr)[7].func = (void *)&flag_i;
-	(*ptr)[7].c = 'i';
-	(*ptr)[SIZEFUNC - 1].func = 0;
-	(*ptr)[SIZEFUNC - 1].c = -1;
+	return (ft_putnstr(start, end - start));
 }
 
-int	index_of_key(t_func ptr[SIZEFUNC], char c)
+static int	is_specifier(char c)
 {
-	int	i;
+	static const char *const	names[256] = {
+	['c'] = "char",
+	['s'] = "char *",
+	['p'] = "pointer",
+	['d'] = "int",
+	['i'] = "int",
+	['u'] = "unsigned",
+	['x'] = "unsigned hexa",
+	['X'] = "unsigned hexa",
+	['f'] = "float / double",
+	['o'] = "octal",
+	['b'] = "binary",
+	['%'] = "percent",
+	};
 
-	i = 0;
-	while (ptr[i].c != -1)
+	return (names[(unsigned)c] != NULL);
+}
+
+static t_bool	case_string_specification(const char **start, const char **end, \
+											int *len, va_list *params)
+{
+	if (e_state == STRING)
 	{
-		if (ptr[i].c == c)
-			return (i);
-		i++;
+		if (**end == '%' || **end == '{')
+		{
+			*len += print_substring(*start, *end);
+			if (**end == '%')
+				e_state = SPECIFICATION;
+			else
+				e_state = COLOR;
+			*start = *end;
+		}
 	}
-	return (-1);
+	else if (e_state == SPECIFICATION)
+	{
+		if (is_specifier(**end))
+		{
+			*len += explain_specification(*start, *end + 1, params);
+			e_state = STRING;
+			*start = *end + 1;
+		}
+	}
+	return (e_state == STRING || e_state == SPECIFICATION);
+}
+
+static void	main_printf(const char *start, const char *end, \
+							int *len, va_list *params)
+{
+	char	*tmp;
+
+	while (*end != '\0')
+	{
+		if (!case_string_specification(&start, &end, len, params))
+		{
+			if (*end == '}')
+			{
+				tmp = ft_strnrchr(start, '{', end - start);
+				if (tmp != start)
+				{
+					print_substring(start, tmp);
+					start = tmp;
+				}
+				if (end[-1] == '{')
+					print_substring(start - 1, end + 1);
+				if (explain_color(start, end + 1))
+					e_state = STRING;
+				else
+					*len += print_substring(start, end + 1);
+				start = end + 1;
+			}
+		}
+		end++;
+	}
+	*len += print_substring(start, end);
 }
 
 int	ft_printf(const char *format, ...)
 {
-	t_func	ptr[SIZEFUNC];
-	va_list	args_infos;
-	int		indexof;
-	int		len;
-	int		i;
+	va_list		params;
+	int			len;
+	const char	*p;
+	const char	*start;
 
-	i = 0;
+	p = format;
+	start = format;
+	e_state = STRING;
 	len = 0;
-	indexof = -1;
-	init_tfunc(&ptr);
-	va_start(args_infos, format);
-	while (format[i])
-	{
-		while (format[i] && format[i] != '%')
-		{
-			ft_putchar_fd(format[i++], 1);
-			len++;
-		}
-		if (!format[i])
-			break ;
-		++i;
-		if (format[i] == '%')
-			flag_c('%', &len);
-		else
-		{
-			indexof = index_of_key(ptr, format[i]);
-			if (indexof >= 0)
-				ptr[indexof].func(va_arg(args_infos, void *), &len);
-		}
-		i++;
-	}
-	va_end(args_infos);
+	va_start(params, format);
+	main_printf(start, p, &len, &params);
+	va_end(params);
 	return (len);
 }

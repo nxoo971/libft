@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap.c                                          :+:      :+:    :+:   */
+/*   exec_binary.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 04:33:51 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/30 03:05:25 by nxoo             ###   ########.fr       */
+/*   Created: 2022/10/16 19:49:48 by nxoo              #+#    #+#             */
+/*   Updated: 2022/10/30 03:12:58 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../ft_printf.h"
 
-void	ft_swap(void *a, void *b, size_t const n)
+int	exec_binary(va_list *param, struct s_spec_info *s)
 {
-	size_t			i;
-	unsigned char	*cur_a;
-	unsigned char	*cur_b;
-	unsigned char	tmp;
+	uintptr_t	n;
 
-	i = 0;
-	while (i < n)
-	{
-		cur_a = a + i;
-		cur_b = b + i;
-		tmp = *cur_a;
-		*cur_a = *cur_b;
-		*cur_b = tmp;
-		i++;
-	}
+	n = va_arg(*param, unsigned int);
+	s->current_size = len_unsigned(n, 2);
+	s->is_null = n == 0;
+	return (print_algo_flag(s, n, 2, faux));
 }

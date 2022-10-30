@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sflags.c                                           :+:      :+:    :+:   */
+/*   calc_len.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 17:44:07 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/29 21:53:20 by nxoo             ###   ########.fr       */
+/*   Created: 2022/10/05 02:28:10 by nxoo              #+#    #+#             */
+/*   Updated: 2022/10/30 03:12:53 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-void	put_d(int n)
+int	len_unsigned(uintptr_t nb, const int base)
 {
-	ft_putchar_fd(n + '0', 1);
+	static int	len;
+
+	len = 0;
+	if (nb >= (unsigned)base)
+		len_unsigned(nb / (unsigned)base, base);
+	len++;
+	return (len);
 }
 
-void	put_x(unsigned int n)
+int	len_integer(intptr_t nb, const int base)
 {
-	ft_putchar_fd(LOWERHEXA[n], 1);
-}
-
-void	put_bigx(unsigned int n)
-{
-	ft_putchar_fd(UPPERHEXA[n], 1);
-}
-
-void	put_p(unsigned long int n)
-{
-	ft_putchar_fd(LOWERHEXA[n], 1);
-}
-
-void	put_u(unsigned int n)
-{
-	ft_putchar_fd(n + '0', 1);
+	if (nb < 0)
+		return (1 + len_unsigned((unsigned)nb * -1, base));
+	return (len_unsigned((unsigned)nb, base));
 }
