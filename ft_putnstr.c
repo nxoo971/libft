@@ -6,18 +6,13 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 02:25:17 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/30 03:05:59 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/30 23:41:40 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putnstr(const char *s, size_t len)
+ssize_t	ft_putnstr(const char *s, size_t len)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i] && i < len)
-		i++;
-	return (write(1, s, i));
+	return (ft_putnstr_fd(s, len, 1));
 }

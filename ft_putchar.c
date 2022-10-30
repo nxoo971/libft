@@ -6,13 +6,13 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 01:06:38 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/21 01:13:24 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/30 23:43:26 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putchar(const char c)
+ssize_t	ft_putchar(const char c)
 {
 	return (write(1, &c, 1));
 }

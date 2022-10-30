@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 20:13:10 by ooxn              #+#    #+#             */
-/*   Updated: 2022/10/21 04:52:07 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/30 23:49:01 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,13 @@ void	ft_putnbr_fd(int n, int fd);
 
 /* ajout en plus */
 int		ft_isspace(const char c);
-int		ft_putchar(const char c);
-int		ft_putstr(const char *s);
-int		ft_putnstr(const char *s, size_t len);
-int		ft_putendl(const char *s);
+ssize_t	ft_putchar(const char c);
+ssize_t	ft_putstr(const char *s);
+ssize_t	ft_putnstr(const char *s, size_t len);
+ssize_t	ft_putnstr_fd(const char *s, size_t len, int fd);
+ssize_t	ft_putendl(const char *s);
+ssize_t	ft_putnendl(char *s, size_t len);
+ssize_t	ft_putnendl_fd(char *s, size_t len, int fd);
 void	ft_putnbr(int n);
 void	ft_swap(void *a, void *b, size_t const n);
 char	*ft_strcpy(char *dest, const char *src);

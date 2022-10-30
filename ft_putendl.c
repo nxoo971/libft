@@ -6,13 +6,13 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 01:07:40 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/21 01:11:27 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/30 23:43:05 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putendl(const char *s)
+ssize_t	ft_putendl(const char *s)
 {
 	if (s)
 		return (ft_putstr(s) + ft_putchar('\n'));
